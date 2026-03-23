@@ -1,0 +1,5 @@
+.DS_Store
+.env
+.vscode/settings.json
+__pycache__/backend.cpython-313.pyc
+__pycache__/post.cpython-313.pyc
