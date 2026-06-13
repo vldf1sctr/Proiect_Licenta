@@ -5,6 +5,7 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 import os
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,6 +14,14 @@ DB_USER = os.getenv("DB_USER")
 DB_NAME = os.getenv("DB_NAME")
 DB_HOST = os.getenv("DB_HOST")
 API_KEY = os.getenv("API_KEY")
+N8N_WEBHOOK_URL = os.getenv("N8N_WEBHOOK_URL")
+
+def trigger_n8n_webhook():
+    try:
+        resp = requests.post(N8N_WEBHOOK_URL, timeout=10, verify=False)
+        print(f"n8n response: {resp.status_code} {resp.text}")
+    except Exception as e:
+        print(f"Eroare: {e}")
 
 class Indicator(BaseModel):
     id: Optional[int] = None
@@ -67,6 +76,7 @@ async def post(eur_ron: float, usd_ron: float, ircc: float, robor: float, dummy:
     c.execute("INSERT INTO indicatori (eur_ron, usd_ron, ircc, robor, dummy, data) VALUES (%(eur_ron)s, %(usd_ron)s, %(ircc)s, %(robor)s, %(dummy)s, %(data)s)", {'eur_ron': eur_ron, 'usd_ron': usd_ron, 'ircc': ircc, 'robor': robor, 'dummy': dummy, 'data': data})
     conn.commit()
     conn.close()
+    trigger_n8n_webhook()
     return {"operatie": "realizata"}
 
 @app.post('/post_inBulk')
@@ -76,6 +86,7 @@ async def post_in_bulk(items: List[Indicator], x_api_key: str = Header()):
     c.executemany("INSERT INTO indicatori (eur_ron, usd_ron, ircc, robor, dummy, data) VALUES (%(eur_ron)s, %(usd_ron)s, %(ircc)s, %(robor)s, %(dummy)s, %(data)s)", [item.model_dump(exclude={"id"}) for item in items])
     conn.commit()
     conn.close()
+    trigger_n8n_webhook()
     return {"operatie": "realizata"}
 
 @app.delete('/del_row_byId')

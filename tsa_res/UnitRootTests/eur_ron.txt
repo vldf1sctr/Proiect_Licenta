@@ -1,0 +1,26 @@
+Tip regresie: ct
+
+ADF Test:
+Test Statistic: -3.4412085951792224
+p-value: 0.04612075178757706
+Valori critice:
+  1%: -4.00722493293483
+  5%: -3.43385428838023
+  10%: -3.1407704096807114
+
+KPSS Test (regresie: ct):
+Test Statistic: 0.153669554832787
+p-value: 0.04360870430601083
+Valori critice:
+  10%: 0.119
+  5%: 0.146
+  2.5%: 0.176
+  1%: 0.216
+
+Zivot-Andrews Test:
+Test Statistic: -5.6006764197106405
+p-value: 0.009122723726488284
+Valori critice:
+  1%: -5.57556
+  5%: -5.07332
+  10%: -4.82668

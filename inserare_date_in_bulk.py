@@ -1,11 +1,17 @@
 import pandas as pd
-import json
+from dotenv import load_dotenv
+import os
+load_dotenv()
+CSV_PATH = os.getenv("CSV_PATH")
 
-df = pd.read_csv('/Users/vlad/Downloads/prognoza cursului de schimb prin automatizarea analizei statistice a seriilor de timp - bulk (1).csv')
+df = pd.read_csv(CSV_PATH)
+df.rename(columns={"Valoare in RON (EUR)": "eur_ron", "Valoare in RON (USD)": "usd_ron", "IRCC (%)": "ircc", "ROBOR (%)": "robor", "Data": "data"}, inplace=True)
+df["data"] = pd.to_datetime(df["data"], format="%d.%m.%Y")
+df.sort_values(by="data", inplace=True)
+df.drop(columns=["ID"], inplace=True)
 
-df = df.drop(columns=['id'])
 
-records = df.to_dict(orient='records')
+df["data"] = df["data"].dt.strftime(date_format="%Y-%m-%d")
+df.to_json("data.json", orient="records", indent=2)
 
-with open('data.json', 'w') as f:
-    json.dump(records, f, indent=2)
+print(df.head())

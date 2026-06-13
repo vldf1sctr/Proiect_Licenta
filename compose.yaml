@@ -1,0 +1,24 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: proiect_licenta_n8n
+    restart: always
+    ports:
+      - "5677:5678"
+    environment:
+      - N8N_HOST=proiect_licenta_n8n.apimella.com
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://proiect_licenta_n8n.apimella.com/
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: proiect_licenta_cloudflared
+    restart: always
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - n8n
+
+volumes:
+  n8n_data:

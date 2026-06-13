@@ -1,0 +1,7 @@
+ARCH Test pentru usd_ron cu variabile exogene:
+LM Statistic: 17.528714256042516
+LM p-value: 0.06345334398219739
+F Statistic: 1.8419496705916942
+F p-value: 0.0589851654377177
+
+Concluzie: Nu exista efecte ARCH => GARCH nu este necesar

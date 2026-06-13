@@ -1,0 +1,34 @@
+ARCH Test pentru eur_ron cu variabile exogene:
+LM Statistic: 35.39968423851862
+LM p-value: 0.00010669369510748007
+F Statistic: 4.320925613364637
+F p-value: 3.0256935302694678e-05
+
+Concluzie: Efecte ARCH prezente => GARCH necesar
+
+GARCH(1,1) Model:
+                     Constant Mean - GARCH Model Results                      
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                      GARCH   Log-Likelihood:               -93.8703
+Distribution:                  Normal   AIC:                           195.741
+Method:            Maximum Likelihood   BIC:                           207.940
+                                        No. Observations:                  156
+Date:                Fri, Jun 05 2026   Df Residuals:                      155
+Time:                        22:06:12   Df Model:                            1
+                                  Mean Model                                 
+=============================================================================
+                 coef    std err          t      P>|t|       95.0% Conf. Int.
+-----------------------------------------------------------------------------
+mu            -0.0144  3.161e-02     -0.455      0.649 [-7.636e-02,4.757e-02]
+                               Volatility Model                              
+=============================================================================
+                 coef    std err          t      P>|t|       95.0% Conf. Int.
+-----------------------------------------------------------------------------
+omega      7.5903e-04  1.300e-03      0.584      0.559 [-1.789e-03,3.307e-03]
+alpha[1]       0.0000  1.611e-02      0.000      1.000 [-3.158e-02,3.158e-02]
+beta[1]        0.9818  1.808e-02     54.302      0.000      [  0.946,  1.017]
+=============================================================================
+
+Covariance estimator: robust
